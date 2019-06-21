@@ -1,0 +1,1 @@
+raspistill -o capture.jpg
