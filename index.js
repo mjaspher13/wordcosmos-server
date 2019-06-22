@@ -84,8 +84,8 @@ function sliceImage() {
 var dice = function (x, img) {
     if (grid.length > x) {
 
-        Jimp.read('/home/pi/wordcosmos-server/img_rotate/' + img)
-            .then((err, image) => {
+        Jimp.read('/home/pi/wordcosmos-server/img_rotate/' + img,
+            (err, image) => {
 
                 if (err) {
                     dice(x, img)
