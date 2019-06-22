@@ -67,14 +67,16 @@ app.get('/shake', function (req, res, next) {
 
 function sliceImage() {
     Jimp.read('/home/pi/wordcosmos-server/img_capture/capture.jpg', (err, image) => {
-        if (err) throw err;
-        image
-            .rotate(72)
-            .crop(830, 950, 1450, 1400)
-            .write('/home/pi/wordcosmos-server/img_rotate/capture.jpg')
+        try {
+            image
+                .rotate(72)
+                .crop(830, 950, 1450, 1400)
+                .write('/home/pi/wordcosmos-server/img_rotate/capture.jpg')
 
-        dice(0, 'capture.jpg')
-
+            dice(0, 'capture.jpg')
+        } catch (e) {
+            sliceImage()
+        }
     })
 }
 
@@ -101,7 +103,7 @@ var dice = function (x, img) {
 var imageRecognize = function (i = 0) {
 
     if (i < 16) {
-        execSync(`python3 label_image.py --label="/home/pi/boggle-model/labels/labels.txt" --graph="/home/pi/boggle-model/graphs/graph.pb" --image="/home/pi/wordcosmos-server/img_slice/capture_${i}.jpg"`, (err, stdout, stderr, status) => {
+        exec(`python3 label_image.py --label="/home/pi/boggle-model/labels/labels.txt" --graph="/home/pi/boggle-model/graphs/graph.pb" --image="/home/pi/wordcosmos-server/img_slice/capture_${i}.jpg"`, (err, stdout, stderr, status) => {
             if (err) {
                 console.error(err);
                 return;
