@@ -66,12 +66,12 @@ app.get('/shake', function (req, res, next) {
 });
 
 function sliceImage() {
-    Jimp.read('./img_capture/capture.jpg', (err, image) => {
+    Jimp.read('/home/pi/wordcosmos-server/img_capture/capture.jpg', (err, image) => {
         if (err) throw err;
         image
             .rotate(72)
             .crop(830, 950, 1450, 1400)
-            .write('./img_rotate/capture.jpg')
+            .write('/home/pi/wordcosmos-server/img_rotate/capture.jpg')
 
         dice(0, 'capture.jpg')
 
@@ -82,12 +82,12 @@ function sliceImage() {
 var dice = function (x, img) {
     if (grid.length > x) {
 
-        Jimp.read('./img_rotate/' + img)
+        Jimp.read('/home/pi/wordcosmos-server/img_rotate/' + img)
             .then(image => {
                 imageName = img
                 imageSliceName = imageName.substring(0, imageName.indexOf('.'))
                 image.crop(grid[x][0], grid[x][1], grid[x][2], grid[x][3])
-                    .write('./img_slice/' + imageSliceName + '_' + x + '.jpg', function () {
+                    .write(' /home/pi/wordcosmos-server/img_slice/' + imageSliceName + '_' + x + '.jpg', function () {
                         x += 1
                         console.log('/img_slice/' + imageSliceName + '_' + x + '.jpg')
                         dice(x, img)
