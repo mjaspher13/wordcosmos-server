@@ -73,7 +73,7 @@ function sliceImage() {
                 .crop(830, 950, 1450, 1400)
                 .write('/home/pi/wordcosmos-server/img_rotate/capture.jpg')
 
-            dice(0, 'capture.jpg')
+            dice(0)
         } catch (e) {
             sliceImage()
         }
@@ -81,7 +81,7 @@ function sliceImage() {
 }
 
 
-var dice = function (x, img) {
+var dice = function (x, img = 'capture.jpg') {
     if (grid.length > x) {
 
         Jimp.read('/home/pi/wordcosmos-server/img_rotate/' + img,
