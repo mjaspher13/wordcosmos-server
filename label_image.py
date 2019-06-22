@@ -1,18 +1,3 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -138,6 +123,15 @@ if __name__ == "__main__":
 
   print('\nEvaluation time (1-image): {:.3f}s\n'.format(end-start))
   template = "{} (score={:0.5f})"
+  finalResult = "";
+  first = True;
   for i in top_k:
-    print(template.format(labels[i], results[i]))
-    print([i])
+    #print(template.format(labels[i], results[i]))
+    if first == True:
+      finalResult = labels[i];
+      first = False;
+  #print(finalResult);
+  file_name = './my_file.txt'
+  f = open(file_name, 'a+')  # open file in write mode
+  f.write(","+finalResult)
+  f.close()

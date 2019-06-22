@@ -104,7 +104,7 @@ var dice = function (x, img) {
 var imageRecognize = function () {
     
    
-    execSync('python label_image.py', (err, stdout, stderr, status) => {
+    execSync('python3 label_image.py --label="/home/pi/boggle-model/labels/labels.txt" --graph="/home/pi/boggle-model/graphs/graph.pb" --image="/home/pi/wordcosmos-server/img_slice/capture_0.jpg"', (err, stdout, stderr, status) => {
 
        
         if (err) {
@@ -118,15 +118,6 @@ var imageRecognize = function () {
         console.log(status);
     })
 
-
-    // const pyProg = spawn('python', ['./label_image.py']);
-
-    // pyProg.stdout.on('data', function(data) {
-
-    //     console.log(data.toString());
-    //     res.write(data);
-    //     res.end('end');
-    // });
 
     console.log('IMAGE RECOGNITION')
 }
