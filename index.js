@@ -85,7 +85,12 @@ var dice = function (x, img) {
     if (grid.length > x) {
 
         Jimp.read('/home/pi/wordcosmos-server/img_rotate/' + img)
-            .then(image => {
+            .then((err, image) => {
+
+                if (err) {
+                    dice(x, img)
+                }
+
                 imageName = img
                 imageSliceName = imageName.substring(0, imageName.indexOf('.'))
                 image.crop(grid[x][0], grid[x][1], grid[x][2], grid[x][3])
