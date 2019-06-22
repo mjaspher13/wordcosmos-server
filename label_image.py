@@ -131,7 +131,7 @@ if __name__ == "__main__":
       finalResult = labels[i];
       first = False;
   #print(finalResult);
-  file_name = './my_file.txt'
+  file_name = './recognized_letters.txt'
   f = open(file_name, 'a+')  # open file in write mode
   f.write(","+finalResult)
   f.close()
