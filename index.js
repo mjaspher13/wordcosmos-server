@@ -8,7 +8,7 @@ const path = require('path')
 const port = process.env.PORT || 4000;
 const execSync = require('child_process').execSync;
 const exec = require('child_process').exec;
-const spawn  = require('child_process').spawn;
+const spawn = require('child_process').spawn;
 
 const server = http.listen(port, () => {
     console.log('Server listening on port: ' + port);
@@ -38,7 +38,6 @@ const grid = [
 ]
 
 app.get('/shake', function (req, res, next) {
-imageRecognize()
     exec('python /home/pi/wordcosmos-server/shaker.py', (err, stdout, stderr) => {
         if (err) {
             console.error(err);
@@ -94,30 +93,29 @@ var dice = function (x, img) {
                         dice(x, img)
                     })
             })
-    }
-
-    else{
+    } else {
         imageRecognize()
     }
 }
 
-var imageRecognize = function () {
-    
-   
-    execSync('python3 label_image.py --label="/home/pi/boggle-model/labels/labels.txt" --graph="/home/pi/boggle-model/graphs/graph.pb" --image="/home/pi/wordcosmos-server/img_slice/capture_0.jpg"', (err, stdout, stderr, status) => {
+var imageRecognize = function (i = 0) {
 
-       
-        if (err) {
-            console.error(err);
-            return;
-        }
-        if(stderr){
-            console.error(stderr)
-        }
-        console.log(stdout);
-        console.log(status);
-    })
+    if (i < 16) {
+        execSync(`python3 label_image.py --label="/home/pi/boggle-model/labels/labels.txt" --graph="/home/pi/boggle-model/graphs/graph.pb" --image="/home/pi/wordcosmos-server/img_slice/capture_${i}.jpg"`, (err, stdout, stderr, status) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            if (stderr) {
+                console.error(stderr)
+            }
+            // console.log(stdout);
+            // console.log(status);
+        })
+        console.log('IMAGE RECOGNITION: capture_ ' + i + '.jpg')
+        i++
+        imageRecognize(i)
+    }
 
 
-    console.log('IMAGE RECOGNITION')
 }
