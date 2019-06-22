@@ -49,7 +49,7 @@ app.get('/shake', function (req, res, next) {
     setTimeout(function () {
         console.log('capture image')
 
-        exec('sudo raspistill -o /home/pi/wordcosmos/img_capture/capture.jpg', (err, stdout, stderr) => {
+        exec('sudo raspistill -o /home/pi/wordcosmos-server/img_capture/capture.jpg', (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
                 sliceImage()
